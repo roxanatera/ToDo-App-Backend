@@ -1,0 +1,24 @@
+{
+  "compilerOptions": {
+    "target": "ES6",
+    "module": "CommonJS",
+    "jsx": "react-jsx", // Configuración para manejar JSX con React
+    "rootDir": ".", // Cambiado para abarcar todo el proyecto
+    "outDir": "./dist",
+    "declaration": true,
+    "declarationDir": "./dist/types",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "typeRoots": ["./node_modules/@types", "./src/types"], 
+    "resolveJsonModule": true,
+    "allowJs": true,
+    "types": ["jest"] // Incluye los tipos de Jest
+  },
+  "include": [
+    "src/**/*", 
+    "__tests__/**/*.test.ts", 
+    "src/types/express/index.d.ts" 
+  ],
+  "exclude": ["node_modules", "dist"]
+}
