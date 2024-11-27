@@ -23,5 +23,5 @@ const swaggerDocs = swaggerJsDoc(swaggerOptions);
 
 export const setupSwagger = (app: Application): void => {
   app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
-  console.log("Documentación de API disponible en http://localhost:5000/api-docs");
+  console.log("Documentación de API disponible en: https://todo-app-backend-eef5.onrender.com/");
 };
