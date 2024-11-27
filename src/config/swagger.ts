@@ -12,7 +12,7 @@ const swaggerOptions = {
     },
     servers: [
       {
-        url: "http://localhost:5000",
+        url: "https://todo-app-backend-eef5.onrender.com/",
       },
     ],
   },
