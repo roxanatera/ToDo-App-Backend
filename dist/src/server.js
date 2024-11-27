@@ -20,7 +20,6 @@ app.use(express_1.default.json());
 app.use((0, cors_1.default)({
     origin: "http://localhost:5173", // Cambia al dominio de tu frontend
     methods: ["GET", "POST", "PUT", "DELETE"],
-    credentials: true,
 }));
 // Configurar Swagger
 (0, swagger_1.setupSwagger)(app);
