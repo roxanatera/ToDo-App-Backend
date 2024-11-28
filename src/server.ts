@@ -20,7 +20,7 @@ app.use(express.json());
 // Configuración de CORS
 const allowedOrigins = [
   "http://localhost:5173", // Para desarrollo local
-  "https://mi-frontend-en-netlify.netlify.app", // Cambia a tu dominio en producción
+  "https://atodotasksapp.netlify.app/login", // Cambia a tu dominio en producción
 ];
 
 app.use(
@@ -37,10 +37,8 @@ app.use(
   })
 );
 
-// Configurar Swagger solo en desarrollo
-if (process.env.NODE_ENV === "development") {
-  setupSwagger(app);
-}
+// Configurar Swagger en todos los entornos
+setupSwagger(app);
 
 // Rutas de autenticación
 app.use("/api/auth", authRoutes);
