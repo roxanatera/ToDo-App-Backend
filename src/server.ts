@@ -20,7 +20,7 @@ app.use(express.json());
 // Configuración de CORS
 const allowedOrigins = [
   "http://localhost:5173", // Frontend en desarrollo
-  "https://atodotasksapp.netlify.app", // Frontend en producción
+  "https://to-do-app-front-hrx52cszh-roxanateras-projects.vercel.app/login", // Frontend en producción
 ];
 
 app.use(
