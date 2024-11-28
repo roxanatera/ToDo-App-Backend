@@ -20,15 +20,16 @@ app.use(express.json());
 // Configuración de CORS
 const allowedOrigins = [
   "http://localhost:5173", // Frontend en desarrollo
-  "https://to-do-app-front-hrx52cszh-roxanateras-projects.vercel.app/login", // Frontend en producción
+  "https://to-do-app-front-hrx52cszh-roxanateras-projects.vercel.app", // Frontend en producción
 ];
 
 app.use(
   cors({
     origin: (origin, callback) => {
       if (!origin || allowedOrigins.includes(origin)) {
-        callback(null, true); 
+        callback(null, true);
       } else {
+        console.error(`Origen no permitido: ${origin}`); // Mensaje de error más claro
         callback(new Error("No permitido por CORS"));
       }
     },
@@ -36,6 +37,7 @@ app.use(
     credentials: true, // Necesario si usas cookies
   })
 );
+
 
 
 // Configurar Swagger en todos los entornos

@@ -20,7 +20,7 @@ app.use(express_1.default.json());
 // Configuración de CORS
 const allowedOrigins = [
     "http://localhost:5173", // Frontend en desarrollo
-    "https://atodotasksapp.netlify.app", // Frontend en producción
+    "https://to-do-app-front-hrx52cszh-roxanateras-projects.vercel.app", // Frontend en producción
 ];
 app.use((0, cors_1.default)({
     origin: (origin, callback) => {
@@ -28,6 +28,7 @@ app.use((0, cors_1.default)({
             callback(null, true);
         }
         else {
+            console.error(`Origen no permitido: ${origin}`); // Mensaje de error más claro
             callback(new Error("No permitido por CORS"));
         }
     },

@@ -4,20 +4,21 @@ import { Application } from 'express';
 
 const swaggerOptions = {
     definition: {
-        openapi: '3.0.0',
-        info: {
-            title: 'To-Do App API',
-            version: '1.0.0',
-            description: 'API para gestionar tareas y usuarios.',
+      openapi: "3.0.0",
+      info: {
+        title: "To-Do App API",
+        version: "1.0.0",
+        description: "API para gestionar tareas y usuarios.",
+      },
+      servers: [
+        {
+          url: process.env.SWAGGER_SERVER_URL || "http://localhost:5000", // Configurable por entorno
         },
-        servers: [
-            {
-                url: 'https://todo-app-backend-eef5.onrender.com/',
-            },
-        ],
+      ],
     },
-    apis: ['./src/routes/*.ts'], 
+    apis: ["./src/routes/*.ts"], 
   };
+  
 
 const swaggerDocs = swaggerJsDoc(swaggerOptions);
 

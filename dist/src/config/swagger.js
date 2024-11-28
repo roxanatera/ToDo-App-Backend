@@ -8,19 +8,19 @@ const swagger_jsdoc_1 = __importDefault(require("swagger-jsdoc"));
 const swagger_ui_express_1 = __importDefault(require("swagger-ui-express"));
 const swaggerOptions = {
     definition: {
-        openapi: '3.0.0',
+        openapi: "3.0.0",
         info: {
-            title: 'To-Do App API',
-            version: '1.0.0',
-            description: 'API para gestionar tareas y usuarios.',
+            title: "To-Do App API",
+            version: "1.0.0",
+            description: "API para gestionar tareas y usuarios.",
         },
         servers: [
             {
-                url: 'https://todo-app-backend-eef5.onrender.com/',
+                url: process.env.SWAGGER_SERVER_URL || "http://localhost:5000", // Configurable por entorno
             },
         ],
     },
-    apis: ['./src/routes/*.ts'],
+    apis: ["./src/routes/*.ts"],
 };
 const swaggerDocs = (0, swagger_jsdoc_1.default)(swaggerOptions);
 const setupSwagger = (app) => {
