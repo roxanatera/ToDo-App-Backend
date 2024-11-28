@@ -19,8 +19,8 @@ app.use(express.json());
 
 // Configuración de CORS
 const allowedOrigins = [
-  "http://localhost:5173", 
-  "https://atodotasksapp.netlify.app/login", 
+  "http://localhost:5173", // Frontend en desarrollo
+  "https://atodotasksapp.netlify.app", // Frontend en producción
 ];
 
 app.use(
@@ -33,9 +33,10 @@ app.use(
       }
     },
     methods: ["GET", "POST", "PUT", "DELETE"],
-    credentials: true, 
+    credentials: true, // Necesario si usas cookies
   })
 );
+
 
 // Configurar Swagger en todos los entornos
 setupSwagger(app);
