@@ -20,7 +20,7 @@ app.use(express.json());
 // Configuración de CORS
 const allowedOrigins = [
   "http://localhost:5173", // Frontend en desarrollo
-  "https://to-do-app-front-hrx52cszh-roxanateras-projects.vercel.app", // Frontend en producción
+  "https://to-do-app-front-end-beta.vercel.app/login", // Frontend en producción
 ];
 
 app.use(
