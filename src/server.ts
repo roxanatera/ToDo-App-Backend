@@ -19,21 +19,21 @@ app.use(express.json());
 
 // Configuración de CORS
 const allowedOrigins = [
-  "http://localhost:5173", // Para desarrollo local
-  "https://atodotasksapp.netlify.app/login", // Cambia a tu dominio en producción
+  "http://localhost:5173", 
+  "https://atodotasksapp.netlify.app/login", 
 ];
 
 app.use(
   cors({
     origin: (origin, callback) => {
       if (!origin || allowedOrigins.includes(origin)) {
-        callback(null, true); // Permitir solicitudes desde orígenes válidos
+        callback(null, true); 
       } else {
         callback(new Error("No permitido por CORS"));
       }
     },
     methods: ["GET", "POST", "PUT", "DELETE"],
-    credentials: true, // Si necesitas usar cookies o autenticación basada en sesiones
+    credentials: true, 
   })
 );
 
@@ -58,7 +58,7 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
 });
 
 // Inicialización del servidor
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 10000;
 app.listen(PORT, () => {
   console.log(colors.blue(`Servidor corriendo en puerto ${PORT}`));
 });
