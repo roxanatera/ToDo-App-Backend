@@ -16,7 +16,8 @@ const mongoose_1 = __importDefault(require("mongoose"));
 const colors_1 = __importDefault(require("colors"));
 const connectDB = () => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        yield mongoose_1.default.connect(process.env.MONGO_URI || "mongodb://localhost:27017/todoApp");
+        yield mongoose_1.default.connect(process.env.MONGO_URI ||
+            "mongodb+srv://root_app:todo_app@cluster0.iahb0.mongodb.net/todoApp?retryWrites=true&w=majority");
         console.log(colors_1.default.bold.green("MongoDB conectado"));
     }
     catch (error) {
