@@ -25,8 +25,8 @@ export const setupSwagger = (app: Application): void => {
   app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
   const serverUrl =
   process.env.NODE_ENV === "production"
-      ? "https://todo-app-backend-eef5.onrender.com/api-docs" // URL del servidor en producción
-      : "http://localhost:1000/api-docs"; // URL en desarrollo/local
+      ? "https://todo-app-backend-eef5.onrender.com/api-docs" 
+      : "http://localhost:10000/api-docs"; 
 
   console.log(`Documentación de API disponible en: ${serverUrl}`);
 };
