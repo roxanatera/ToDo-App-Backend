@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import { Jwt } from "jsonwebtoken";
 import User from "../models/User";
 import Joi from "joi";
 
@@ -18,7 +19,8 @@ const registerSchema = Joi.object({
   }),
 });
 
-// Controlador para registrar usuarios
+import jwt from "jsonwebtoken";
+
 export const registerUser = async (req: Request, res: Response): Promise<void> => {
   try {
     const { error } = registerSchema.validate(req.body, { abortEarly: false });
@@ -37,17 +39,26 @@ export const registerUser = async (req: Request, res: Response): Promise<void> =
     }
 
     const newUser = new User({ name, email, password });
-    await newUser.save();
+    const savedUser = await newUser.save();
 
+    // Generar un token JWT
+    const token = jwt.sign({ id: savedUser.id }, process.env.JWT_SECRET || "defaultSecret", {
+      expiresIn: "1h",
+    });
+
+    // Responder con el token y la información del usuario
     res.status(201).json({
       message: "Usuario registrado con éxito",
-      user: { id: newUser.id, name: newUser.name, email: newUser.email },
+      user: { id: savedUser.id, name: savedUser.name, email: savedUser.email },
+      token,
     });
   } catch (error) {
     console.error("Error al registrar usuario:", error);
     res.status(500).json({ message: "Error interno al registrar usuario" });
   }
 };
+
+
 
 // **Controlador para iniciar sesión**
     const loginSchema = Joi.object({
@@ -72,21 +83,29 @@ export const registerUser = async (req: Request, res: Response): Promise<void> =
     
         const { email, password } = req.body;
     
+        // Buscar el usuario por email
         const user = await User.findOne({ email });
         if (!user) {
           res.status(401).json({ message: "Correo o contraseña incorrectos." });
           return;
         }
     
+        // Verificar contraseña
         const isPasswordCorrect = await user.comparePassword(password);
         if (!isPasswordCorrect) {
           res.status(401).json({ message: "Correo o contraseña incorrectos." });
           return;
         }
     
+        // Generar un token JWT
+        const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET || "defaultSecret", {
+          expiresIn: "1h",
+        });
+    
         res.status(200).json({
           message: "Inicio de sesión exitoso",
           user: { id: user.id, name: user.name, email: user.email },
+          token,
         });
       } catch (error) {
         console.error("Error al iniciar sesión:", error);

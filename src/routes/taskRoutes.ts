@@ -3,21 +3,23 @@ import {
 createTask,
 getTasks, 
 updateTask, 
-deleteTask } 
+deleteTask 
+} 
 from "../controllers/taskController";
+import {verifyToken} from '../middleware/authMiddleware'
 
 const router = Router();
 
 // Crear tarea
-router.post("/", createTask);
+router.post("/", verifyToken, createTask);
 
 // Obtener todas las tareas
-router.get("/", getTasks);
+router.get("/", verifyToken, getTasks);
 
-// Actualizar una tarea
-router.put("/:id", updateTask); 
+// Actualizar tarea
+router.put("/:id", verifyToken, updateTask);
 
-// Eliminar una tarea
-router.delete("/:id", deleteTask); 
+// Eliminar tarea
+router.delete("/:id", verifyToken, deleteTask);
 
 export default router;

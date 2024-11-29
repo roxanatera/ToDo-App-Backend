@@ -1,19 +1,23 @@
-import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
+import { Request, Response, NextFunction } from "express";
 
-export const authMiddleware = (req: Request, res: Response, next: NextFunction): void => {
-  const token = req.header("Authorization")?.replace("Bearer ", "");
 
+interface TokenPayload {
+  id: string;
+}
+
+export const verifyToken = (req: Request, res: Response, next: NextFunction): void => {
+  const token = req.headers.authorization?.split(" ")[1]; // Extraer el token del encabezado
   if (!token) {
-    res.status(401).json({ message: "Acceso denegado" });
+    res.status(401).json({ message: "No se proporcionó el token." });
     return;
   }
 
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET || "defaultsecret") as { id: string };
-    (req as any).user = { id: decoded.id }; // Asocia el ID del usuario a la solicitud
+    const decoded = jwt.verify(token, process.env.JWT_SECRET || "defaultSecret") as TokenPayload;
+    res.locals.userId = decoded.id; // Guardar el userId en res.locals
     next();
   } catch (error) {
-    res.status(400).json({ message: "Token inválido" });
+    res.status(403).json({ message: "Token inválido o expirado." });
   }
 };

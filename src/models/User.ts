@@ -26,7 +26,6 @@ userSchema.pre<IUser>("save", async function (next) {
   if (!this.isModified("password")) {
     return next();
   }
-
   this.password = await bcrypt.hash(this.password, 10);
   next();
 });
@@ -38,5 +37,4 @@ userSchema.methods.comparePassword = async function (password: string): Promise<
 
 // Exportar el modelo
 const User = mongoose.model<IUser>("User", userSchema);
-
 export default User;
