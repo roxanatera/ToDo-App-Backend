@@ -39,7 +39,7 @@ app.use(
 );
 
 // Manejo de solicitudes preflight (OPTIONS)
-app.options("*", cors()); 
+app.options("*", cors()); // Este middleware maneja las solicitudes OPTIONS automáticamente
 
 // Configurar Swagger en todos los entornos
 setupSwagger(app);
@@ -50,10 +50,17 @@ app.use("/api/auth", authRoutes);
 // Rutas de tareas
 app.use("/api/tasks", taskRoutes);
 
+console.log("Rutas cargadas: /api/auth, /api/tasks");
+
+
 // Ruta por defecto
 app.get("/", (req: Request, res: Response) => {
   res.send("API funcionando correctamente.");
 });
+app.get("/health", (req, res) => {
+  res.status(200).json({ message: "El servidor está funcionando correctamente." });
+});
+
 
 // Middleware para manejo de errores
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {

@@ -88,6 +88,11 @@ const router = express.Router();
  *         description: Error de validación.
  */
 router.post("/register", registerUser);
+router.post("/register", (req, res, next) => {
+  console.log("Solicitud recibida en /register con datos:", req.body);
+  next();
+}, registerUser);
+
 
 
 /**
