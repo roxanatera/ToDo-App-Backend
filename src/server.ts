@@ -39,7 +39,7 @@ app.use(
 );
 
 // Manejo de solicitudes preflight (OPTIONS)
-app.options("*", cors()); // Este middleware maneja las solicitudes OPTIONS automáticamente
+app.options("*", cors()); 
 
 // Configurar Swagger en todos los entornos
 setupSwagger(app);
