@@ -1,2 +1,2 @@
 import { Request, Response, NextFunction } from "express";
-export declare const authMiddleware: (req: Request, res: Response, next: NextFunction) => void;
+export declare const verifyToken: (req: Request, res: Response, next: NextFunction) => void;

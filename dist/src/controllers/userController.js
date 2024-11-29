@@ -30,7 +30,7 @@ const registerSchema = joi_1.default.object({
         "string.min": "La contraseña debe tener al menos 8 caracteres.",
     }),
 });
-// Controlador para registrar usuarios
+const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const registerUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { error } = registerSchema.validate(req.body, { abortEarly: false });
@@ -46,10 +46,16 @@ const registerUser = (req, res) => __awaiter(void 0, void 0, void 0, function* (
             return;
         }
         const newUser = new User_1.default({ name, email, password });
-        yield newUser.save();
+        const savedUser = yield newUser.save();
+        // Generar un token JWT
+        const token = jsonwebtoken_1.default.sign({ id: savedUser.id }, process.env.JWT_SECRET || "defaultSecret", {
+            expiresIn: "1h",
+        });
+        // Responder con el token y la información del usuario
         res.status(201).json({
             message: "Usuario registrado con éxito",
-            user: { id: newUser.id, name: newUser.name, email: newUser.email },
+            user: { id: savedUser.id, name: savedUser.name, email: savedUser.email },
+            token,
         });
     }
     catch (error) {
@@ -78,19 +84,26 @@ const loginUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             return;
         }
         const { email, password } = req.body;
+        // Buscar el usuario por email
         const user = yield User_1.default.findOne({ email });
         if (!user) {
             res.status(401).json({ message: "Correo o contraseña incorrectos." });
             return;
         }
+        // Verificar contraseña
         const isPasswordCorrect = yield user.comparePassword(password);
         if (!isPasswordCorrect) {
             res.status(401).json({ message: "Correo o contraseña incorrectos." });
             return;
         }
+        // Generar un token JWT
+        const token = jsonwebtoken_1.default.sign({ id: user.id }, process.env.JWT_SECRET || "defaultSecret", {
+            expiresIn: "1h",
+        });
         res.status(200).json({
             message: "Inicio de sesión exitoso",
             user: { id: user.id, name: user.name, email: user.email },
+            token,
         });
     }
     catch (error) {

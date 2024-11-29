@@ -14,26 +14,15 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteTask = exports.updateTask = exports.getTasks = exports.createTask = void 0;
 const Task_1 = __importDefault(require("../models/Task"));
-const mongoose_1 = __importDefault(require("mongoose"));
-const User_1 = __importDefault(require("../models/User"));
 // Crear una tarea
 const createTask = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { title, description, userId } = req.body;
-        if (!userId || !title || !description) {
-            res.status(400).json({ message: "Todos los campos (userId, title, description) son obligatorios." });
+        const userId = res.locals.userId; // Obtenemos el userId del middleware
+        const { title, description } = req.body;
+        if (!title || !description) {
+            res.status(400).json({ message: "El título y la descripción son obligatorios." });
             return;
         }
-        if (!mongoose_1.default.Types.ObjectId.isValid(userId)) {
-            res.status(400).json({ message: "El userId no es válido." });
-            return;
-        }
-        const userExists = yield User_1.default.findById(userId);
-        if (!userExists) {
-            res.status(404).json({ message: "El usuario no existe en la base de datos." });
-            return;
-        }
-        // **Validación para evitar duplicados**
         const existingTask = yield Task_1.default.findOne({ title, description, userId });
         if (existingTask) {
             res.status(400).json({ message: "La tarea ya existe." });
@@ -44,23 +33,14 @@ const createTask = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         res.status(201).json({ message: "Tarea creada con éxito.", task: newTask });
     }
     catch (error) {
-        if (error.code === 11000) {
-            res.status(400).json({ message: "Ya existe una tarea con este título para este usuario." });
-        }
-        else {
-            res.status(500).json({ message: "Error al crear la tarea.", error: error.message });
-        }
+        res.status(500).json({ message: "Error al crear la tarea.", error: error.message });
     }
 });
 exports.createTask = createTask;
 // Obtener todas las tareas
 const getTasks = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { userId } = req.query;
-        if (!userId) {
-            res.status(400).json({ message: "El userId es obligatorio." });
-            return;
-        }
+        const userId = res.locals.userId; // Obtenemos el userId del middleware
         const tasks = yield Task_1.default.find({ userId }).sort({ createdAt: -1 });
         res.status(200).json({ tasks });
     }
@@ -72,20 +52,21 @@ exports.getTasks = getTasks;
 // Actualizar una tarea
 const updateTask = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
+        const userId = res.locals.userId; // Obtenemos el userId del middleware
         const { id } = req.params;
         const { title, description } = req.body;
-        // Validar campos
-        if (!(title === null || title === void 0 ? void 0 : title.trim()) || !(description === null || description === void 0 ? void 0 : description.trim())) {
+        if (!title || !description) {
             res.status(400).json({ message: "El título y la descripción son obligatorios." });
             return;
         }
-        // Buscar y actualizar la tarea
-        const updatedTask = yield Task_1.default.findByIdAndUpdate(id, { title, description }, { new: true } // Devuelve el documento actualizado
-        );
-        if (!updatedTask) {
-            res.status(404).json({ message: "Tarea no encontrada." });
+        const task = yield Task_1.default.findOne({ _id: id, userId });
+        if (!task) {
+            res.status(404).json({ message: "Tarea no encontrada o no pertenece al usuario." });
             return;
         }
+        task.title = title;
+        task.description = description;
+        const updatedTask = yield task.save();
         res.status(200).json({ message: "Tarea actualizada con éxito.", task: updatedTask });
     }
     catch (error) {
@@ -96,15 +77,13 @@ exports.updateTask = updateTask;
 // Eliminar una tarea
 const deleteTask = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { id } = req.params; // ID de la tarea desde los parámetros de la ruta
-        // Buscar y eliminar la tarea
-        const deletedTask = yield Task_1.default.findByIdAndDelete(id);
-        // Verificar si la tarea existía
-        if (!deletedTask) {
-            res.status(404).json({ message: "Tarea no encontrada." });
+        const userId = res.locals.userId; // Obtenemos el userId del middleware
+        const { id } = req.params;
+        const task = yield Task_1.default.findOneAndDelete({ _id: id, userId });
+        if (!task) {
+            res.status(404).json({ message: "Tarea no encontrada o no pertenece al usuario." });
             return;
         }
-        // Respuesta de éxito
         res.status(200).json({ message: "Tarea eliminada con éxito." });
     }
     catch (error) {

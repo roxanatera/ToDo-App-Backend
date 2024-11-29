@@ -22,7 +22,7 @@ const connectDB = () => __awaiter(void 0, void 0, void 0, function* () {
     }
     catch (error) {
         console.error("Error conectando a MongoDB:", error);
-        process.exit(1); // Finaliza el proceso si no puede conectar
+        process.exit(1);
     }
 });
 exports.default = connectDB;

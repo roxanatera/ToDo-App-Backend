@@ -7,7 +7,7 @@ import colors from "colors";
 import cors from "cors";
 import { setupSwagger } from "./config/swagger";
 
-dotenv.config(); // Carga las variables de entorno desde el archivo .env
+dotenv.config();
 
 // Conectar a la base de datos
 connectDB();
@@ -20,7 +20,7 @@ app.use(express.json());
 // Configuración de CORS
 const allowedOrigins = [
   "http://localhost:5173", // Frontend en desarrollo
-  "https://to-do-app-front-end-beta.vercel.app/login", // Frontend en producción
+  "https://to-do-app-front-end-beta.vercel.app", // Dominio en Vercel (asegúrate de que sea correcto)
 ];
 
 app.use(
@@ -33,12 +33,13 @@ app.use(
         callback(new Error("No permitido por CORS"));
       }
     },
-    methods: ["GET", "POST", "PUT", "DELETE"],
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"], // Incluye OPTIONS para preflight
     credentials: true, // Necesario si usas cookies
   })
 );
 
-
+// Manejo de solicitudes preflight (OPTIONS)
+app.options("*", cors()); // Este middleware maneja las solicitudes OPTIONS automáticamente
 
 // Configurar Swagger en todos los entornos
 setupSwagger(app);
