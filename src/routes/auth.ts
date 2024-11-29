@@ -87,7 +87,7 @@ const router = express.Router();
  *       400:
  *         description: Error de validación.
  */
-router.post("/register", registerUser);
+router.post("/api/auth/register", registerUser);
 
 
 /**
@@ -231,9 +231,6 @@ router.put("/tasks/:id", updateTask);
  *         description: Error al eliminar la tarea.
  */
 router.delete("/tasks/:id", deleteTask);
-router.get("/test", (req, res) => {
-  res.send("Ruta de prueba funcionando");
-});
 
 
 
