@@ -57,6 +57,7 @@ console.log("Rutas cargadas: /api/auth, /api/tasks");
 app.get("/", (req: Request, res: Response) => {
   res.send("API funcionando correctamente.");
 });
+
 app.get("/health", (req, res) => {
   res.status(200).json({ message: "El servidor está funcionando correctamente." });
 });
