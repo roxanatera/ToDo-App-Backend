@@ -231,6 +231,9 @@ router.put("/tasks/:id", updateTask);
  *         description: Error al eliminar la tarea.
  */
 router.delete("/tasks/:id", deleteTask);
+router.get("/test", (req, res) => {
+  res.send("Ruta de prueba funcionando");
+});
 
 
 

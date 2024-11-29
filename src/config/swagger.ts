@@ -28,5 +28,4 @@ export const setupSwagger = (app: Application): void => {
         ? 'https://todo-app-backend-eef5.onrender.com/api-docs'
         : `http://localhost:${process.env.PORT || 5000}/api-docs`;
 
-    console.log(`Documentación de API disponible en: ${serverUrl}`);
 };
