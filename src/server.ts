@@ -46,8 +46,6 @@ setupSwagger(app);
 
 // Rutas de autenticación
 app.use("/api/auth", authRoutes);
-
-// Rutas de tareas
 app.use("/api/tasks", taskRoutes);
 
 console.log("Rutas cargadas: /api/auth, /api/tasks");
