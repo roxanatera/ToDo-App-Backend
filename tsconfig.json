@@ -3,7 +3,7 @@
     "target": "ES6",
     "module": "CommonJS",
     "jsx": "react-jsx", // Configuración para manejar JSX con React
-    "rootDir": ".", // Cambiado para abarcar todo el proyecto
+    "rootDir": "./src", // Cambiado para abarcar todo el proyecto
     "outDir": "./dist",
     "declaration": true,
     "declarationDir": "./dist/types",
