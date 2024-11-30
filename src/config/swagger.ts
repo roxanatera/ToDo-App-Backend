@@ -12,7 +12,7 @@ const swaggerOptions = {
       },
       servers: [
         {
-          url: process.env.SWAGGER_SERVER_URL || "http://localhost:5000", // Configurable por entorno
+          url: process.env.SWAGGER_SERVER_URL || "http://localhost:10000", // Configurable por entorno
         },
       ],
     },
@@ -26,6 +26,6 @@ export const setupSwagger = (app: Application): void => {
     app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
     const serverUrl = process.env.NODE_ENV === 'production'
         ? 'https://todo-app-backend-eef5.onrender.com/api-docs'
-        : `http://localhost:${process.env.PORT || 5000}/api-docs`;
+        : `http://localhost:${process.env.PORT || 10000}/api-docs`;
 
 };
