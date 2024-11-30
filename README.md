@@ -44,11 +44,51 @@ To-Do App es una aplicación para gestionar tareas personales desarrollada con u
 - Desplegado en **Vercel**
 
 ---
+To-Do App/
+├── Backend/
+│   ├── src/
+│   │   ├── controllers/
+│   │   ├── routes/
+│   │   ├── models/
+│   │   ├── config/
+│   │   └── server.ts
+│   └── package.json
+├── Frontend/
+│   ├── src/
+│   │   ├── components/
+│   │   ├── pages/
+│   │   ├── services/
+│   │   └── App.jsx
+│   └── package.json
+└── README.md
 
-## **Instalación y Configuración**
 
-### **Back-end**
-1. Clona el repositorio y navega a la carpeta del back-end:
-   ```bash
-   git clone <URL_DEL_REPOSITORIO>
-   cd Backend
+Variables de Entorno
+Back-end
+PORT: Puerto para el servidor Express.
+MONGO_URI: URL de conexión a MongoDB.
+JWT_SECRET: Clave secreta para firmar los tokens JWT.
+Front-end
+VITE_API_URL: URL base para las solicitudes API al back-end.
+Despliegue en Producción
+Back-end
+Plataforma: Render
+Asegúrate de configurar las variables de entorno en Render:
+MONGO_URI
+JWT_SECRET
+Front-end
+Plataforma: Vercel
+Configura las variables de entorno en Vercel:
+VITE_API_URL
+Endpoints del Back-end
+Autenticación
+POST /api/auth/register: Registro de usuarios.
+POST /api/auth/login: Inicio de sesión.
+GET /api/auth/me: Obtiene la información del usuario autenticado.
+Tareas
+POST /api/tasks: Crear una nueva tarea.
+GET /api/tasks: Obtener las tareas del usuario.
+PUT /api/tasks/:id: Actualizar una tarea.
+DELETE /api/tasks/:id: Eliminar una tarea.
+
+
