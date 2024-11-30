@@ -16,7 +16,7 @@ const swaggerOptions = {
         },
         servers: [
             {
-                url: process.env.SWAGGER_SERVER_URL || "http://localhost:5000", // Configurable por entorno
+                url: process.env.SWAGGER_SERVER_URL || "http://localhost:10000", // Configurable por entorno
             },
         ],
     },
@@ -27,7 +27,6 @@ const setupSwagger = (app) => {
     app.use('/api-docs', swagger_ui_express_1.default.serve, swagger_ui_express_1.default.setup(swaggerDocs));
     const serverUrl = process.env.NODE_ENV === 'production'
         ? 'https://todo-app-backend-eef5.onrender.com/api-docs'
-        : `http://localhost:${process.env.PORT || 5000}/api-docs`;
-    console.log(`Documentación de API disponible en: ${serverUrl}`);
+        : `http://localhost:${process.env.PORT || 10000}/api-docs`;
 };
 exports.setupSwagger = setupSwagger;

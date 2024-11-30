@@ -11,7 +11,7 @@ const dotenv_1 = __importDefault(require("dotenv"));
 const colors_1 = __importDefault(require("colors"));
 const cors_1 = __importDefault(require("cors"));
 const swagger_1 = require("./config/swagger");
-dotenv_1.default.config(); // Carga las variables de entorno desde el archivo .env
+dotenv_1.default.config();
 // Conectar a la base de datos
 (0, database_1.default)();
 const app = (0, express_1.default)();
@@ -20,7 +20,7 @@ app.use(express_1.default.json());
 // Configuración de CORS
 const allowedOrigins = [
     "http://localhost:5173", // Frontend en desarrollo
-    "https://to-do-app-front-end-beta.vercel.app/login", // Frontend en producción
+    "https://to-do-app-front-end-beta.vercel.app", // Dominio en Vercel (asegúrate de que sea correcto)
 ];
 app.use((0, cors_1.default)({
     origin: (origin, callback) => {
@@ -32,18 +32,22 @@ app.use((0, cors_1.default)({
             callback(new Error("No permitido por CORS"));
         }
     },
-    methods: ["GET", "POST", "PUT", "DELETE"],
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"], // Incluye OPTIONS para preflight
     credentials: true, // Necesario si usas cookies
 }));
+// Manejo de solicitudes preflight (OPTIONS)
+app.options("*", (0, cors_1.default)()); // Este middleware maneja las solicitudes OPTIONS automáticamente
 // Configurar Swagger en todos los entornos
 (0, swagger_1.setupSwagger)(app);
 // Rutas de autenticación
 app.use("/api/auth", auth_1.default);
-// Rutas de tareas
 app.use("/api/tasks", taskRoutes_1.default);
 // Ruta por defecto
 app.get("/", (req, res) => {
     res.send("API funcionando correctamente.");
+});
+app.get("/health", (req, res) => {
+    res.status(200).json({ message: "El servidor está funcionando correctamente." });
 });
 // Middleware para manejo de errores
 app.use((err, req, res, next) => {
@@ -51,7 +55,7 @@ app.use((err, req, res, next) => {
     res.status(500).json({ message: "Error interno del servidor" });
 });
 // Inicialización del servidor
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 10000;
 app.listen(PORT, () => {
     console.log(colors_1.default.blue(`Servidor corriendo en puerto ${PORT}`));
 });
