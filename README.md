@@ -1,160 +1,54 @@
-# **Task Management Application**
+# **To-Do App**
 
-A simple task management application built with **React**, **Express.js**, and **MongoDB**. It allows users to create, update, delete, and list tasks. The tasks are stored in a MongoDB database, and users can manage their tasks through a clean and responsive frontend.
-
----
-
-## **Table of Contents**
-
-- [Overview](#overview)
-- [Features](#features)
-- [Technologies](#technologies)
-- [Installation](#installation)
-- [Usage](#usage)
-- [API Endpoints](#api-endpoints)
-- [Frontend](#frontend)
-- [Backend](#backend)
-- [Contributing](#contributing)
-- [License](#license)
+To-Do App es una aplicación para gestionar tareas personales desarrollada con un stack **MERN** (MongoDB, Express, React y Node.js). Este proyecto incluye un front-end responsivo desplegado en **Vercel** y un back-end desplegado en **Render**.
 
 ---
 
-## **Overview**
-
-This application is designed to help users manage their tasks in an easy and intuitive way. The user can create, view, update, and delete tasks. Each task contains a title, description, and the user’s ID to associate tasks with users.
-
----
-
-## **Features**
-
-- **Task CRUD Operations**: Create, Read, Update, and Delete tasks.
-- **User Identification**: Tasks are associated with a user ID.
-- **Persistent Storage**: All tasks are stored in a MongoDB database.
-- **Responsive UI**: Built with React and styled with Tailwind CSS for a responsive user interface.
-
----
-
-## **Technologies**
-
-- **Frontend**: React.js, Tailwind CSS
-- **Backend**: Node.js, Express.js
-- **Database**: MongoDB
-- **Authentication**: JWT (JSON Web Tokens) (Optional if using auth routes)
-- **API Client**: Axios
+## **Índice**
+1. [Características](#características)
+2. [Tecnologías Utilizadas](#tecnologías-utilizadas)
+3. [Instalación y Configuración](#instalación-y-configuración)
+   - [Back-end](#back-end)
+   - [Front-end](#front-end)
+4. [Estructura del Proyecto](#estructura-del-proyecto)
+5. [Variables de Entorno](#variables-de-entorno)
+6. [Despliegue en Producción](#despliegue-en-producción)
+7. [Endpoints del Back-end](#endpoints-del-back-end)
+8. [Contribuciones](#contribuciones)
+9. [Licencia](#licencia)
 
 ---
 
-## **Installation**
+## **Características**
+- Gestión de usuarios: registro e inicio de sesión con tokens JWT.
+- CRUD de tareas: creación, lectura, actualización y eliminación de tareas.
+- **Autenticación segura** con JWT.
+- Front-end responsivo con React.
+- Configuración de **CORS** para entornos de desarrollo y producción.
+- Documentación de API con Swagger.
 
-### 1. **Clone the repository**
+---
 
-```bash
-git clone https://github.com/yourusername/task-management-app.git
-cd task-management-app
+## **Tecnologías Utilizadas**
+### **Back-end**
+- **Node.js** con **Express**
+- **MongoDB** como base de datos
+- **TypeScript** para tipado estático
+- **Swagger** para documentación de la API
+- Desplegado en **Render**
 
+### **Front-end**
+- **React** con Hooks y React Router
+- **Vite** para desarrollo rápido
+- **Tailwind CSS** para diseño responsivo
+- Desplegado en **Vercel**
 
+---
 
+## **Instalación y Configuración**
 
-Navigate to the frontend directory and run:
-
-bash
-Copiar código
-cd frontend
-npm install
-Backend
-Navigate to the backend directory and run:
-
-bash
-Copiar código
-cd backend
-npm install
-Usage
-1. Run the Backend Server
-bash
-Copiar código
-cd backend
-npm start
-The backend server will run on http://localhost:5000.
-
-2. Run the Frontend Server
-bash
-Copiar código
-cd frontend
-npm start
-The frontend server will run on http://localhost:3000.
-
-3. Access the Application
-Once both the frontend and backend servers are running, you can access the app by visiting:
-
-bash
-Copiar código
-http://localhost:3000
-API Endpoints
-1. User Routes
-POST /api/auth/register: Register a new user
-POST /api/auth/login: Login an existing user
-GET /api/auth/me: Get the current user (optional, if authentication is implemented)
-2. Task Routes
-GET /api/tasks: Get all tasks for a user.
-POST /api/tasks: Create a new task.
-PUT /api/tasks/:id: Update an existing task.
-DELETE /api/tasks/:id: Delete a task.
-Frontend
-TaskList Component
-The TaskList component is responsible for displaying tasks. It fetches the tasks from the backend and displays them in a list.
-
-TaskForm Component
-The TaskForm component allows the user to create new tasks. When the form is submitted, it sends a POST request to create a new task.
-
-Backend
-Task Controller
-createTask: Creates a new task and stores it in the database.
-getTasks: Retrieves all tasks associated with the logged-in user.
-updateTask: Updates a specific task in the database.
-deleteTask: Deletes a task from the database.
-Contributing
-Fork the repository
-Create a new branch (git checkout -b feature/your-feature-name)
-Commit your changes (git commit -m 'Add new feature')
-Push to the branch (git push origin feature/your-feature-name)
-Create a pull request
-License
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-markdown
-Copiar código
-
-### Explicación de las secciones:
-
-1. **Title**: Usamos un título en negritas para que sea lo primero que destaque al abrir el archivo.
-   
-2. **Table of Contents**: Proporciona enlaces a las diferentes secciones del README para facilitar la navegación.
-
-3. **Overview**: Una breve descripción de lo que hace la aplicación y cómo se estructura.
-
-4. **Features**: Detalla las funcionalidades principales de la aplicación.
-
-5. **Technologies**: Enumera las tecnologías utilizadas en el frontend y backend.
-
-6. **Installation**: Guía para instalar el proyecto, desde la clonación del repositorio hasta la instalación de dependencias para frontend y backend.
-
-7. **Usage**: Proporciona los pasos necesarios para ejecutar la aplicación localmente.
-
-8. **API Endpoints**: Documenta las rutas API disponibles en el backend, describiendo cada una de las funcionalidades de las rutas.
-
-9. **Frontend**: Detalles sobre los componentes principales del frontend, como `TaskList` y `TaskForm`.
-
-10. **Backend**: Explica las funciones que manejan las tareas en el servidor, cómo se manejan las solicitudes y cómo interactúan con la base de datos.
-
-11. **Contributing**: Guía para los desarrolladores que quieran contribuir al proyecto.
-
-12. **License**: Información sobre la licencia del proyecto (MIT en este caso).
-
-Este archivo `README.md` te proporciona una documentación clara y accesible para tu proyecto en GitHub. Además, asegura que otros desarrolladores puedan entender rápidamente cómo instalar, usar y contribuir al proyecto.
-
-
-
-
-
-
-
+### **Back-end**
+1. Clona el repositorio y navega a la carpeta del back-end:
+   ```bash
+   git clone <URL_DEL_REPOSITORIO>
+   cd Backend
