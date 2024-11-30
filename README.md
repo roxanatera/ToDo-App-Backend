@@ -44,23 +44,6 @@ To-Do App es una aplicación para gestionar tareas personales desarrollada con u
 - Desplegado en **Vercel**
 
 ---
-To-Do App/
-├── Backend/
-│   ├── src/
-│   │   ├── controllers/
-│   │   ├── routes/
-│   │   ├── models/
-│   │   ├── config/
-│   │   └── server.ts
-│   └── package.json
-├── Frontend/
-│   ├── src/
-│   │   ├── components/
-│   │   ├── pages/
-│   │   ├── services/
-│   │   └── App.jsx
-│   └── package.json
-└── README.md
 
 
 Variables de Entorno
