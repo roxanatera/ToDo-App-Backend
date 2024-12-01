@@ -20,7 +20,7 @@ app.use(express.json());
 // Configuración de CORS
 const allowedOrigins = [
   "http://localhost:5173", // Frontend en desarrollo
-  "https://to-do-app-front-end-beta.vercel.app", // Dominio en Vercel (asegúrate de que sea correcto)
+  "https://atodotasksapp.netlify.app", // Dominio en Vercel (asegúrate de que sea correcto)
 ];
 
 app.use(
@@ -38,8 +38,8 @@ app.use(
   })
 );
 
-// Manejo de solicitudes preflight (OPTIONS)
-app.options("*", cors()); // Este middleware maneja las solicitudes OPTIONS automáticamente
+
+app.options("*", cors()); 
 
 // Configurar Swagger en todos los entornos
 setupSwagger(app);
