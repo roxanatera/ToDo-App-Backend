@@ -6,6 +6,7 @@ import Task from "../models/Task";
 export const createTask = async (req: Request, res: Response): Promise<void> => {
   try {
     const userId = res.locals.userId; // Obtenemos el userId del middleware
+    console.log("userId desde middleware:", userId); // Log para depurar
     const { title, description } = req.body;
 
     if (!title || !description) {
