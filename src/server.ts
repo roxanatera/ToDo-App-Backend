@@ -20,7 +20,7 @@ app.use(express.json());
 // Configuración de CORS
 const allowedOrigins = [
   "http://localhost:5173", // Frontend en desarrollo
-  "https://to-do-app-front-end1.vercel.app/", // Dominio en Vercel (asegúrate de que sea correcto)
+  "https://to-do-app-front-end1.vercel.app", // Dominio en Vercel (asegúrate de que sea correcto)
 ];
 
 app.use(
